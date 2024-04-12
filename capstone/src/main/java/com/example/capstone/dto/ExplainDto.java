@@ -12,13 +12,16 @@ public class ExplainDto {
     private String sports;
     private boolean ball;
     private String explain;
+    private String videoUrl;
 
-    public static ExplainDto createExplainDto(Explain explain){ //entity -> dto 변환 메소드
+    public static ExplainDto createExplainDto(Explain explain) { //entity -> dto 변환 메소드
         return new ExplainDto(
-            explain.getMovement(),
-            explain.getSport(),
-            explain.isBall(),
-            explain.getExplain()
+                explain.getMovement(),
+                explain.getSport(),
+                explain.isBall(),
+                explain.getExplain(),
+                explain.getVideoUrl()
+
         );
     }
 }

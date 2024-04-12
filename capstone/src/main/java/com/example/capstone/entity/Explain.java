@@ -24,6 +24,8 @@ public class Explain {
     private boolean ball;    //non ball game 또는 ball game인지 상위 분류
     @Column
     private String explain; //동작 설명
+    @Column
+    private String videoUrl;//영상 위치
 
 
     public static Explain createExplain(ExplainDto dto) {
@@ -31,7 +33,8 @@ public class Explain {
                 dto.getMovement(),
                 dto.getSports(),
                 dto.isBall(),
-                dto.getExplain());
+                dto.getExplain(),
+                dto.getVideoUrl());
     }
 
     public void patch(ExplainDto dto) {
