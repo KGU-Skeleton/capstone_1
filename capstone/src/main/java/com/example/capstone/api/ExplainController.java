@@ -3,6 +3,7 @@ package com.example.capstone.api;
 import com.example.capstone.dto.ExplainDto;
 import com.example.capstone.entity.Explain;
 import com.example.capstone.service.ExplainService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,7 +15,9 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@Tag(name = "explains", description = "반환")
 public class ExplainController {
+
     @Autowired
     ExplainService explainService;
 
@@ -44,10 +47,7 @@ public class ExplainController {
 
     //Patch
     @PatchMapping("test1/{movement}")
-    public ResponseEntity<ExplainDto> updateExplain(@PathVariable String movement
-                                                    ,@RequestBody ExplainDto dto){
-
-
+    public ResponseEntity<ExplainDto> updateExplain(@PathVariable String movement,@RequestBody ExplainDto dto){
         // 서비스 계층에서 엔티티를 찾고, 없으면 예외 처리
         ExplainDto updateDto = explainService.update(movement, dto);
         if (updateDto == null) {
