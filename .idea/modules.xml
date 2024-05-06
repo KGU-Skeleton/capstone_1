@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/capstone.iml" filepath="$PROJECT_DIR$/.idea/capstone.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/capstone.capstone.main.iml" filepath="$PROJECT_DIR$/.idea/modules/capstone.capstone.main.iml" />
     </modules>
   </component>
 </project>
