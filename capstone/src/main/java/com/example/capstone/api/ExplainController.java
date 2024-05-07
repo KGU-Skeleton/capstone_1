@@ -23,7 +23,7 @@ public class ExplainController {
     @Autowired
     ExplainService explainService;
 
-    //GET
+    //GET정
     @GetMapping("test1/{movement}")
     @Operation(summary = "동작 설명 가져오기", description = "주어진 동작에 대한 설명을 가져옵니다.")
     public ResponseEntity<ExplainDto> ball_game_explains(@PathVariable String movement){ //동작명 따와서 mapping 하는 중
@@ -34,7 +34,7 @@ public class ExplainController {
 
     //POST
     @PostMapping("test1/new")
-    @Operation(summary = "", description = "")
+    @Operation(summary = "게임 설명 생성", description = "새로운 게임 설명을 생성합니다. Movement 필드에는 한글 또는 띄어쓰기가 포함될 수 없습니다.")
     public ResponseEntity<?> createExplain(@RequestBody ExplainDto dto){
         // sport 또는 explain 필드에 한글 또는 띄어쓰기가 있는지 검사
         if (dto.getMovement().matches(".*[\\sㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
@@ -51,7 +51,7 @@ public class ExplainController {
 
     //Patch
     @PatchMapping("test1/{movement}")
-    @Operation(summary = "설명 생성", description = "새로운 설명을 생성. Movement 필드는 한글 또는 띄어쓰기를 포함할 수 없음.")
+    @Operation(summary = "설명 수정", description = "기존 설명을 수정합니다. Movement 필드는 한글 또는 띄어쓰기를 포함할 수 없습니다.")
     public ResponseEntity<ExplainDto> updateExplain(
             @PathVariable String movement,@RequestBody ExplainDto dto
     ){
