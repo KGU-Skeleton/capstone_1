@@ -3,7 +3,9 @@ package com.example.capstone.api;
 import com.example.capstone.dto.ExplainDto;
 import com.example.capstone.entity.Explain;
 import com.example.capstone.service.ExplainService;
+
 import io.swagger.v3.oas.annotations.Operation;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,7 +17,9 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@Tag(name = "explains", description = "반환")
 public class ExplainController {
+
     @Autowired
     ExplainService explainService;
 
