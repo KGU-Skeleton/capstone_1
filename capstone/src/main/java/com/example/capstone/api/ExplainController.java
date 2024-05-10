@@ -24,7 +24,7 @@ public class ExplainController {
     ExplainService explainService;
 
     //GET정
-    @GetMapping("test1/{movement}")
+    @GetMapping("explain/{movement}")
     @Operation(summary = "동작 설명 가져오기", description = "주어진 동작에 대한 설명을 가져옵니다.")
     public ResponseEntity<ExplainDto> ball_game_explains(@PathVariable String movement){ //동작명 따와서 mapping 하는 중
         ExplainDto dtos=explainService.getExplain(movement); //서비스 실행
@@ -33,7 +33,7 @@ public class ExplainController {
     }
 
     //POST
-    @PostMapping("test1/new")
+    @PostMapping("explain/new")
     @Operation(summary = "게임 설명 생성", description = "새로운 게임 설명을 생성합니다. Movement 필드에는 한글 또는 띄어쓰기가 포함될 수 없습니다.")
     public ResponseEntity<?> createExplain(@RequestBody ExplainDto dto){
         // sport 또는 explain 필드에 한글 또는 띄어쓰기가 있는지 검사
@@ -50,7 +50,7 @@ public class ExplainController {
     }
 
     //Patch
-    @PatchMapping("test1/{movement}")
+    @PatchMapping("explain/{movement}")
     @Operation(summary = "설명 수정", description = "기존 설명을 수정합니다. Movement 필드는 한글 또는 띄어쓰기를 포함할 수 없습니다.")
     public ResponseEntity<ExplainDto> updateExplain(
             @PathVariable String movement,@RequestBody ExplainDto dto
@@ -63,7 +63,7 @@ public class ExplainController {
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
 
-    @DeleteMapping("test1/{movement}")
+    @DeleteMapping("explain/{movement}")
     @Operation(summary = "설명 삭제", description = "주어진 동작에 대한 설명을 삭제")
     public ResponseEntity<ExplainDto> deleteExplain(@PathVariable String movement){
 
