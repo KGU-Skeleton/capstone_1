@@ -19,7 +19,7 @@ public class ExplainController {
     ExplainService explainService;
 
     //GET
-    @GetMapping("test1/{movement}")
+    @GetMapping("explain/{movement}")
     public ResponseEntity<ExplainDto> ball_game_explains(@PathVariable String movement){ //동작명 따와서 mapping 하는 중
         ExplainDto dtos=explainService.getExplain(movement); //서비스 실행
 
@@ -27,7 +27,7 @@ public class ExplainController {
     }
 
     //POST
-    @PostMapping("test1/new")
+    @PostMapping("explain/new")
     public ResponseEntity<?> createExplain(@RequestBody ExplainDto dto){
         // sport 또는 explain 필드에 한글 또는 띄어쓰기가 있는지 검사
         if (dto.getMovement().matches(".*[\\sㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
@@ -43,7 +43,7 @@ public class ExplainController {
     }
 
     //Patch
-    @PatchMapping("test1/{movement}")
+    @PatchMapping("explain/{movement}")
     public ResponseEntity<ExplainDto> updateExplain(@PathVariable String movement
                                                     ,@RequestBody ExplainDto dto){
 
@@ -56,7 +56,7 @@ public class ExplainController {
         return ResponseEntity.status(HttpStatus.OK).body(updateDto);
     }
 
-    @DeleteMapping("test1/{movement}")
+    @DeleteMapping("explain/{movement}")
     public ResponseEntity<ExplainDto> deleteExplain(@PathVariable String movement){
 
         ExplainDto deleteDto=explainService.delete(movement);
