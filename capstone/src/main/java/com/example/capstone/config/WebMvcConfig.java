@@ -1,18 +1,18 @@
-package com.example.capstone;
+package com.example.capstone.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@RequiredArgsConstructor
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173")
-                .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE");
+                .allowedOriginPatterns("*")  // allowedOrigins 대신 allowedOriginPatterns 사용
+                .allowedMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
+                .allowCredentials(false);  // 명시적으로 credentials 허용하지 않음
     }
 }
