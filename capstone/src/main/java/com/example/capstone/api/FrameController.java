@@ -1,30 +1,43 @@
 package com.example.capstone.api;
 
-import com.example.capstone.dto.FrameDTO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-@Slf4j
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import com.example.capstone.config.WebSocketConfig;
+import com.example.capstone.api.MyWebSocketHandler;
+
+import java.io.IOException;
+import java.util.Map;
+
 @RestController
+@RequestMapping("/api/frames")
 public class FrameController {
 
-    private final SimpMessagingTemplate messagingTemplate;
-
     @Autowired
-    public FrameController(SimpMessagingTemplate messagingTemplate) {
-        this.messagingTemplate = messagingTemplate;
-    }
+    private MyWebSocketHandler myWebSocketHandler;
+    @PostMapping
+    public void receiveFrame(@RequestBody Map<String, Object> payload) throws IOException {
+        String imageBase64 = (String) payload.get("imageBase64");
+        float similarity = Float.parseFloat(payload.get("similarity").toString());
+        String message = String.format("{\"image\":\"%s\", \"similarity\":%.2f}", imageBase64, similarity);
 
-    @PostMapping("/api/frames")
-    public ResponseEntity<Void> uploadFrame(@RequestBody FrameDTO frameDTO) {
-        // WebSocket을 통해 연결된 클라이언트들에게 이미지 데이터와 유사도 값을 전송
-        messagingTemplate.convertAndSend("/topic/frame", frameDTO);
-        return ResponseEntity.ok().build();
-    }
+        // 메시지를 모든 연결된 웹소켓 클라이언트에게 전송
+        for (WebSocketSession session : myWebSocketHandler.getSessions()) {
+            if (session.isOpen()) {
+                try {
+                    session.sendMessage(new TextMessage(message));
+                } catch (
+                        IOException e
+                ){
+                    e.printStackTrace();
+                }
+            }
 
+        }
+    }
 }
 
